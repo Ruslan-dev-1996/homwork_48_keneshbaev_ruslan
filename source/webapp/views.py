@@ -3,9 +3,10 @@ from webapp.forms import ProductForm
 from webapp.models import Product, PRODUCT_OTHER_CHOICE
 
 
+
 def index_view(request, *args, **kwargs):
     search_query = request.GET.get('search', '')
-    products = Product.objects.all()
+    products = Product.objects.filter(amount__gt=0).order_by('category')
     if search_query:
         products = Product.objects.filter(name__icontains=search_query, amount__gt=0)
         return render(request, 'index.html', context={
