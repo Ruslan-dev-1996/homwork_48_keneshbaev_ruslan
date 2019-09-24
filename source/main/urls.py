@@ -25,8 +25,3 @@ urlpatterns = [
     path('detailed/<int:pk>/edit/', detailed_update_view, name='update'),
     path('deatiled/<int:pk>/delete/', detailed_delete_view, name='delete')
 ]
-
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]

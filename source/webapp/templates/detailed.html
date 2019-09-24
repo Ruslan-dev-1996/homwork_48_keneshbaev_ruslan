@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block title %} Detailed {% endblock %}
 {% block content %}
-     <h1>Moore</h1>
+     <h1>More</h1>
      <p> name: {{ task.name }}</p>
-     <p> category: {{ task.category }}</p>
+     <p> description: {{ task.description }}</p>
+     <p> amount: {{ task.amount }}</p>
      <p>price: {{ task.price}}</p>
 {% endblock %}

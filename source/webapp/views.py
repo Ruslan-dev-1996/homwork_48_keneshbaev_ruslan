@@ -4,8 +4,15 @@ from webapp.models import Product, PRODUCT_OTHER_CHOICE
 
 
 def index_view(request, *args, **kwargs):
-    products = Product.objects.filter(amount__gt=0)
-    return render(request, 'index.html', context={
+    search_query = request.GET.get('search', '')
+    products = Product.objects.all()
+    if search_query:
+        products = Product.objects.filter(name__icontains=search_query, amount__gt=0)
+        return render(request, 'index.html', context={
+
+        'products':products})
+    else:
+        return render(request, 'index.html', context={
         'products': products
     })
 
@@ -44,7 +51,7 @@ def detailed_update_view(request, pk):
     if request.method == 'GET':
         form = ProductForm(data={
             'name': task.name,
-            'descriptions': task.descriptions,
+            'description': task.description,
             'category': task.category,
             'amunt': task.amount,
             'price': task.price
@@ -54,7 +61,7 @@ def detailed_update_view(request, pk):
         form = ProductForm(data=request.POST)
         if form.is_valid():
             task.name = form.cleaned_data['name']
-            task.descriptions = form.cleaned_data['descriptions']
+            task.description = form.cleaned_data['description']
             task.category = form.cleaned_data['category']
             task.amount = form.cleaned_data['amount']
             task.price = form.cleaned_data['price']

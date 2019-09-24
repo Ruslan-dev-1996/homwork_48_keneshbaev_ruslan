@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
-{% block menu %}
-       <li><a href="{% url 'form_storage' %}">Добавить</a></li>
-{% endblock %}
 {% block content %}
-      <h1>To Do List</h1>
-      <hr>
-      {% for append in products %}
-        <h2>{{ append.name }}</h2>
-        <p><a href="{% url 'detailed' append.pk %}">Подробнее...</a></p>
-        <p><a href="{% url 'update' append.pk %}">Редактирование</a></p>
-        <p><a href="{% url 'delete' append.pk %}">Удалить</a></p>
-
+        <h1 class="mt-3">Product</h1>
         <hr>
-      {% endfor %}
+    <div class="card-deck">
+        {% for i in products %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{% url 'delete' i.pk %}"><i class="fas fa-delete"></i> <i class="fas fa-trash-alt"></i></a>
+                        <a href="{% url 'update' i.pk %}"><i class="fas fa-edit"></i> </a>
+                        <a href="{% url 'detailed' i.pk %}"><i class="fas fa-angle-double-right"></i></a>
+                        <p class="card-text">{{ i.name  }}</p>
+                        <hr>
+                        <p class="card-text">{{ i.price }}</p>
+                        <p class="card-text">{{ i.category }}</p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
